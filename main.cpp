@@ -54,7 +54,7 @@ class ball {
 			return velocity;
 		}
 
-		void update() {
+		void update(sf::RenderWindow& window) {
 			float new_x = position.get_x() + dt * velocity.get_x();
 			float new_y = position.get_y() + dt * velocity.get_y();
 
@@ -64,13 +64,16 @@ class ball {
 			circle.setPosition(new_x, new_y);
 
 			// update velocity for gravity
+			float new_vx = velocity.get_x();
 			float new_vy = velocity.get_y() + dt * g;
-			if (new_y >= window.getSize().y) new_vy *= -1;
+			if (new_x < 0 || new_x >= window.getSize().x) new_vx *= -1;
+			if (new_y < 0 || new_y >= window.getSize().y) new_vy *= -1;
+			velocity.set_x(new_vx);
 			velocity.set_y(new_vy);
 		}
 
 		void render(sf::RenderWindow& window) {
-			update();
+			update(window);
 			window.draw(circle);
 		}
 };
@@ -88,8 +91,8 @@ class scene {
 
 int main() {
 
-	float width, height;
-	width = height= 500.0;
+	uint width, height;
+	width = height= 500;
 	sf::RenderWindow window(sf::VideoMode(width, height), "collision");
 
 	scene scene;

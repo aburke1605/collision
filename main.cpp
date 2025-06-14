@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+#define dt 0.1
+
 void parse_user_input(sf::RenderWindow& window) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -51,7 +53,18 @@ class ball {
 			return velocity;
 		}
 
+		void update() {
+			float new_x = position.get_x() + dt * velocity.get_x();
+			float new_y = position.get_y() + dt * velocity.get_y();
+
+			position.set_x(new_x);
+			position.set_y(new_y);
+
+			circle.setPosition(new_x, new_x);
+		}
+
 		void render(sf::RenderWindow& window) {
+			update();
 			window.draw(circle);
 		}
 };

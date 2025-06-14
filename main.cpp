@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 
-#define dt 0.1
+#define dt 0.025
+#define g  9.8
 
 void parse_user_input(sf::RenderWindow& window) {
 		sf::Event event;
@@ -60,7 +61,12 @@ class ball {
 			position.set_x(new_x);
 			position.set_y(new_y);
 
-			circle.setPosition(new_x, new_x);
+			circle.setPosition(new_x, new_y);
+
+			// update velocity for gravity
+			float new_vy = velocity.get_y() + dt * g;
+			if (new_y >= window.getSize().y) new_vy *= -1;
+			velocity.set_y(new_vy);
 		}
 
 		void render(sf::RenderWindow& window) {

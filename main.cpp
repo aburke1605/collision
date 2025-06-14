@@ -1,5 +1,12 @@
 #include <SFML/Graphics.hpp>
 
+void parse_user_input(sf::RenderWindow& window) {
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
+				window.close();
+		}
+}
 
 class ball {
 	private:
@@ -38,6 +45,7 @@ int main() {
 
 	scene scene;
 	while (window.isOpen()) {
+		parse_user_input(window);
 		scene.update(window);
 		window.display();
 	}

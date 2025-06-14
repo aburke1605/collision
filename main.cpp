@@ -19,6 +19,16 @@ class ball {
 		}
 };
 
+class scene {
+	private:
+		ball b;
+	public:
+		scene() {}
+		void update(sf::RenderWindow& window) {
+			b.render(window);
+		}
+
+};
 
 int main() {
 
@@ -26,7 +36,9 @@ int main() {
 	width = height= 500.0;
 	sf::RenderWindow window(sf::VideoMode(width, height), "collision");
 
+	scene scene;
 	while (window.isOpen()) {
+		scene.update(window);
 		window.display();
 	}
 

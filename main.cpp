@@ -28,16 +28,29 @@ template <typename T> class vec {
 class ball {
 	private:
 		sf::CircleShape circle;
+		vec<float> position;
+		vec<float> velocity;
 
 	public:
 		ball() {
+			position = vec<float>(10.0, 10.0);
+			velocity = vec<float>(1.0, 1.0);
+
 			circle = sf::CircleShape(10.0);
 			circle.setPosition(5.0, 5.0);
 			circle.setFillColor(sf::Color::White);
 		}
+
 		const sf::Shape& get_shape_handle() {
 			return circle;
 		}
+		const vec<float> get_position() {
+			return position;
+		}
+		const vec<float> get_velocity() {
+			return velocity;
+		}
+
 		void render(sf::RenderWindow& window) {
 			window.draw(circle);
 		}

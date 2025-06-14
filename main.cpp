@@ -1,7 +1,11 @@
+#include <cmath>
+
 #include <SFML/Graphics.hpp>
+
 
 #define dt 0.025
 #define g  9.8
+#define b  0.1 // air resistance
 
 void parse_user_input(sf::RenderWindow& window) {
 		sf::Event event;
@@ -64,8 +68,12 @@ class ball {
 			circle.setPosition(new_x, new_y);
 
 			// update velocity for gravity
-			float new_vx = velocity.get_x();
-			float new_vy = velocity.get_y() + dt * g;
+			float vx = velocity.get_x();
+			float new_vx = vx * exp(-b * dt);
+			new_vx = std::abs(new_vx - vx) > 0.001 ? new_vx : 0.0;
+			float vy = velocity.get_y();
+			float new_vy = vy * exp(-b * dt) + dt * g;
+			new_vy = std::abs(new_vy - vy) > 0.001 ? new_vy : 0.0;
 			if (new_x < 0 || new_x >= window.getSize().x) new_vx *= -1;
 			if (new_y < 0 || new_y >= window.getSize().y) new_vy *= -1;
 			velocity.set_x(new_vx);
@@ -80,11 +88,11 @@ class ball {
 
 class scene {
 	private:
-		ball b;
+		ball _b;
 	public:
 		scene() {}
 		void update(sf::RenderWindow& window) {
-			b.render(window);
+			_b.render(window);
 		}
 
 };

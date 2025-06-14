@@ -88,6 +88,7 @@ int main() {
 
 	scene scene;
 	while (window.isOpen()) {
+		window.clear();
 		parse_user_input(window);
 		scene.update(window);
 		window.display();

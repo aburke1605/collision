@@ -1,11 +1,13 @@
 #include <cmath>
+#include <chrono>
 
 #include <SFML/Graphics.hpp>
 
 
-#define dt 0.025
 #define g  9.8
 #define b  0.1 // air resistance
+
+typedef std::chrono::high_resolution_clock clock;
 
 void parse_user_input(sf::RenderWindow& window) {
 		sf::Event event;
@@ -58,7 +60,7 @@ class ball {
 			return velocity;
 		}
 
-		void update(sf::RenderWindow& window) {
+		void update(sf::RenderWindow& window, float dt) {
 			// update velocity first for gravity and air resistance
 			float new_vx = velocity.get_x() * exp(-b * dt);
 			float new_vy = (velocity.get_y() + g * dt) * exp(-b * dt);
@@ -85,8 +87,8 @@ class ball {
 			velocity.set_y(new_vy);
 		}
 
-		void render(sf::RenderWindow& window) {
-			update(window);
+		void render(sf::RenderWindow& window, float dt) {
+			update(window, dt);
 			window.draw(circle);
 		}
 };
@@ -94,10 +96,19 @@ class ball {
 class scene {
 	private:
 		ball _b;
+		clock::time_point time;
+
 	public:
-		scene() {}
+		scene() {
+			time = clock::now();
+		}
 		void update(sf::RenderWindow& window) {
 			_b.render(window);
+			clock::time_point current_time = clock::now();
+			std::chrono::duration<float> delta = current_time - time;
+			float dt = delta.count(); // in seconds
+			time = current_time;
+
 		}
 
 };

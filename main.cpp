@@ -69,15 +69,15 @@ class ball {
 			// update position using new velocity
 			float new_px = position.get_x() + new_vx * dt;
 			float new_py = position.get_y() + new_vy * dt;
-			
+
 			// check for out of boundary and bounce back
-			if (new_px < 0 || new_px >= window.getSize().x) {
+			if (new_px < 0 || new_px + 2 * circle.getRadius() >= window.getSize().x) {
 				new_vx = -new_vx;
-				new_px = new_px < 0 ? -new_px : -new_px + 2 * window.getSize().x;
+				new_px = new_px < 0 ? -new_px : -new_px + 2 * (window.getSize().x - 2 * circle.getRadius());
 			}
-			if (new_py < 0 || new_py >= window.getSize().y) {
+			if (new_py < 0 || new_py + 2 * circle.getRadius() >= window.getSize().y) {
 				new_vy = -new_vy;
-				new_py = new_py < 0 ? -new_py : -new_py + 2 * window.getSize().y;
+				new_py = new_py < 0 ? -new_py : -new_py + 2 * (window.getSize().y - 2 * circle.getRadius());
 			}
 
 			// apply changes

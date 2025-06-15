@@ -4,8 +4,9 @@
 #include <SFML/Graphics.hpp>
 
 
-#define g  9.8
-#define b  0.1 // air resistance
+// constants are scaled by ~100 to convert from metres to pixels
+#define g  981
+#define b  1 // air resistance
 
 typedef std::chrono::high_resolution_clock clock;
 

@@ -59,16 +59,15 @@ class ball {
 		}
 
 		void update(sf::RenderWindow& window) {
-			float vx = velocity.get_x();
-			float vy = velocity.get_y();
-			float px = position.get_x();
-			float py = position.get_y();
+			// update velocity first for gravity and air resistance
+			float new_vx = velocity.get_x() * exp(-b * dt);
+			float new_vy = (velocity.get_y() + g * dt) * exp(-b * dt);
 
-			float new_vx = vx * exp(-b * dt);
-			float new_vy = (vy + g * dt) * exp(-b * dt);
-			float new_px = px + new_vx * dt;
-			float new_py = py + new_vy * dt;
+			// update position using new velocity
+			float new_px = position.get_x() + new_vx * dt;
+			float new_py = position.get_y() + new_vy * dt;
 			
+			// check for out of boundary and bounce back
 			if (new_px < 0 || new_px >= window.getSize().x) {
 				new_vx = -new_vx;
 				new_px = new_px < 0 ? -new_px : -new_px + 2 * window.getSize().x;
@@ -78,10 +77,10 @@ class ball {
 				new_py = new_py < 0 ? -new_py : -new_py + 2 * window.getSize().y;
 			}
 
+			// apply changes
 			position.set_x(new_px);
 			position.set_y(new_py);
 			circle.setPosition(new_px, new_py);
-
 			velocity.set_x(new_vx);
 			velocity.set_y(new_vy);
 		}

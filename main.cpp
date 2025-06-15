@@ -96,7 +96,7 @@ class ball {
 
 class scene {
 	private:
-		ball _b;
+		ball B;
 		clock::time_point time;
 
 	public:
@@ -104,12 +104,12 @@ class scene {
 			time = clock::now();
 		}
 		void update(sf::RenderWindow& window) {
-			_b.render(window);
 			clock::time_point current_time = clock::now();
 			std::chrono::duration<float> delta = current_time - time;
 			float dt = delta.count(); // in seconds
 			time = current_time;
 
+			B.render(window, dt);
 		}
 
 };

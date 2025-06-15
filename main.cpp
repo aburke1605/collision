@@ -59,23 +59,29 @@ class ball {
 		}
 
 		void update(sf::RenderWindow& window) {
-			float new_x = position.get_x() + dt * velocity.get_x();
-			float new_y = position.get_y() + dt * velocity.get_y();
-
-			position.set_x(new_x);
-			position.set_y(new_y);
-
-			circle.setPosition(new_x, new_y);
-
-			// update velocity for gravity
 			float vx = velocity.get_x();
-			float new_vx = vx * exp(-b * dt);
-			new_vx = std::abs(new_vx - vx) > 0.001 ? new_vx : 0.0;
 			float vy = velocity.get_y();
-			float new_vy = vy * exp(-b * dt) + dt * g;
-			new_vy = std::abs(new_vy - vy) > 0.001 ? new_vy : 0.0;
-			if (new_x < 0 || new_x >= window.getSize().x) new_vx *= -1;
-			if (new_y < 0 || new_y >= window.getSize().y) new_vy *= -1;
+			float px = position.get_x();
+			float py = position.get_y();
+
+			float new_vx = vx * exp(-b * dt);
+			float new_vy = (vy + g * dt) * exp(-b * dt);
+			float new_px = px + new_vx * dt;
+			float new_py = py + new_vy * dt;
+			
+			if (new_px < 0 || new_px >= window.getSize().x) {
+				new_vx = -new_vx;
+				new_px = new_px < 0 ? -new_px : -new_px + 2 * window.getSize().x;
+			}
+			if (new_py < 0 || new_py >= window.getSize().y) {
+				new_vy = -new_vy;
+				new_py = new_py < 0 ? -new_py : -new_py + 2 * window.getSize().y;
+			}
+
+			position.set_x(new_px);
+			position.set_y(new_py);
+			circle.setPosition(new_px, new_py);
+
 			velocity.set_x(new_vx);
 			velocity.set_y(new_vy);
 		}

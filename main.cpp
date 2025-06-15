@@ -8,7 +8,7 @@
 #define g  981
 #define b  1 // air resistance
 
-typedef std::chrono::high_resolution_clock clock;
+typedef std::chrono::high_resolution_clock clk;
 
 void parse_user_input(sf::RenderWindow& window) {
 		sf::Event event;
@@ -97,14 +97,14 @@ class ball {
 class scene {
 	private:
 		ball B;
-		clock::time_point time;
+		clk::time_point time;
 
 	public:
 		scene() {
-			time = clock::now();
+			time = clk::now();
 		}
 		void update(sf::RenderWindow& window) {
-			clock::time_point current_time = clock::now();
+			clk::time_point current_time = clk::now();
 			std::chrono::duration<float> delta = current_time - time;
 			float dt = delta.count(); // in seconds
 			time = current_time;

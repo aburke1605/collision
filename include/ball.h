@@ -1,11 +1,8 @@
 #pragma once
 
-#include <cmath>
-
 #include <SFML/Graphics.hpp>
 
 #include "object.h"
-#include "../include/constants.h"
 
 class ball: public object {
 	private:
@@ -14,5 +11,5 @@ class ball: public object {
 	public:
 		ball();
 
-		void update(sf::RenderWindow&, float);
+		void out_of_bounds(sf::RenderWindow&, float&, float&, float&, float&);
 };

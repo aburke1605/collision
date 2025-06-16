@@ -9,29 +9,13 @@ ball::ball() {
 	shape->setFillColor(sf::Color::White);
 }
 
-void ball::update(sf::RenderWindow& window, float dt) {
-	// update velocity first for gravity and air resistance
-	float new_vx = velocity.get_x() * exp(-b * dt);
-	float new_vy = (velocity.get_y() + g * dt) * exp(-b * dt);
-
-	// update position using new velocity
-	float new_px = position.get_x() + new_vx * dt;
-	float new_py = position.get_y() + new_vy * dt;
-
-	// check for out of boundary and bounce back
-	if (new_px < 0 || new_px + 2 * radius >= window.getSize().x) {
-		new_vx = -new_vx;
-		new_px = new_px < 0 ? -new_px : -new_px + 2 * (window.getSize().x - 2 * radius);
+void ball::out_of_bounds(sf::RenderWindow& window, float& px, float& py, float& vx, float& vy) {
+	if (px < 0 || px + 2 * radius >= window.getSize().x) {
+		vx = -vx;
+		px = px < 0 ? -px : -px + 2 * (window.getSize().x - 2 * radius);
 	}
-	if (new_py < 0 || new_py + 2 * radius >= window.getSize().y) {
-		new_vy = -new_vy;
-		new_py = new_py < 0 ? -new_py : -new_py + 2 * (window.getSize().y - 2 * radius);
+	if (py < 0 || py + 2 * radius >= window.getSize().y) {
+		vy = -vy;
+		py = py < 0 ? -py : -py + 2 * (window.getSize().y - 2 * radius);
 	}
-
-	// apply changes
-	position.set_x(new_px);
-	position.set_y(new_py);
-	shape->setPosition(new_px, new_py);
-	velocity.set_x(new_vx);
-	velocity.set_y(new_vy);
 }

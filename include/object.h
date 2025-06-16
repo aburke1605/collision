@@ -1,8 +1,11 @@
 #pragma once
 
+#include <cmath>
+
 #include <SFML/Graphics.hpp>
 
 #include "vec.h"
+#include "constants.h"
 
 class object {
     protected:
@@ -17,7 +20,8 @@ class object {
 		const vec<float> get_velocity();
 
         // changes for each shape
-		virtual void update(sf::RenderWindow&, float) = 0;
+		virtual void out_of_bounds(sf::RenderWindow&, float&, float&, float&, float&) = 0;
+		void update(sf::RenderWindow&, float);
 
 		void render(sf::RenderWindow&, float);
 };

@@ -20,7 +20,7 @@ class object {
 		const vec<float> get_velocity();
 
         // changes for each shape
-		virtual void out_of_bounds(sf::RenderWindow&, float&, float&, float&, float&) = 0;
+		virtual void out_of_bounds(float&, float&, float, float = 0.0) = 0;
 		void update(sf::RenderWindow&, float);
 
 		void render(sf::RenderWindow&, float);

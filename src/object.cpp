@@ -18,7 +18,8 @@ void object::update(sf::RenderWindow& window, float dt) {
 	float new_py = position.get_y() + new_vy * dt;
 
 	// check for out of boundary and bounce back
-	out_of_bounds(window, new_px, new_py, new_vx, new_vy);
+	out_of_bounds(new_px, new_vx, window.getSize().x);
+	out_of_bounds(new_py, new_vy, window.getSize().y);
 
 	// apply changes
 	position.set_x(new_px);

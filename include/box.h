@@ -11,5 +11,5 @@ class box: public object {
 	public:
 		box();
 
-		void out_of_bounds(sf::RenderWindow&, float&, float&, float&, float&);
+		void out_of_bounds(float&, float&, float, float);
 };

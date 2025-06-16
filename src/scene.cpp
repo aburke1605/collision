@@ -10,5 +10,6 @@ void scene::update(sf::RenderWindow& window) {
 	float dt = delta.count(); // in seconds
 	time = current_time;
 
-	B.render(window, dt);
+	Ball.render(window, dt);
+	Box.render(window, dt);
 }

@@ -6,10 +6,12 @@ typedef std::chrono::high_resolution_clock clk;
 #include <SFML/Graphics.hpp>
 
 #include "ball.h"
+#include "box.h"
 
 class scene {
 	private:
-		ball B;
+		ball Ball;
+		box Box;
 		clk::time_point time;
 
 	public:

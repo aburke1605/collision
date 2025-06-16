@@ -1,13 +1,11 @@
 #include "../include/ball.h"
-#include "../include/constants.h"
 
 ball::ball() {
-	position = vec<float>(10.0, 10.0);
-	velocity = vec<float>(1.0, 1.0);
+	position = vec<float>(10.0, 0.0);
+	velocity = vec<float>(0.0, 0.0);
 	radius = 10.0;
 
 	shape = std::make_unique<sf::CircleShape>(radius);
-	shape->setPosition(5.0, 5.0);
 	shape->setFillColor(sf::Color::White);
 }
 

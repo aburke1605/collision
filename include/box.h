@@ -7,12 +7,12 @@
 #include "object.h"
 #include "../include/constants.h"
 
-class ball: public object {
+class box: public object {
 	private:
-		float radius;
+		float length;
 
 	public:
-		ball();
+		box();
 
 		void update(sf::RenderWindow&, float);
 };

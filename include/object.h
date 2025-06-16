@@ -16,8 +16,10 @@ class object {
     public:
         virtual ~object() = default;
 
-		const vec<float> get_position();
-		const vec<float> get_velocity();
+		vec<float> get_position() const;
+		vec<float> get_velocity() const;
+		void set_position(vec<float>);
+		void set_velocity(vec<float>);
 
         // changes for each shape
 		virtual float get_dimension() = 0;

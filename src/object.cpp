@@ -1,11 +1,19 @@
 #include "../include/object.h"
 
-const vec<float> object::get_position() {
+vec<float> object::get_position() const {
 	return position;
 }
 
-const vec<float> object::get_velocity() {
+vec<float> object::get_velocity() const {
 	return velocity;
+}
+
+void object::set_position(vec<float> p) {
+	position = p;
+}
+
+void object::set_velocity(vec<float> v) {
+	velocity = v;
 }
 
 void object::out_of_bounds(float& p, float& v, float edge_upper, float edge_lower) {

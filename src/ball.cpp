@@ -4,22 +4,11 @@
 ball::ball() {
 	position = vec<float>(10.0, 10.0);
 	velocity = vec<float>(1.0, 1.0);
+	radius = 10.0;
 
-	circle = sf::CircleShape(10.0);
-	circle.setPosition(5.0, 5.0);
-	circle.setFillColor(sf::Color::White);
-}
-
-const sf::Shape& ball::get_shape_handle() {
-	return circle;
-}
-
-const vec<float> ball::get_position() {
-	return position;
-}
-
-const vec<float> ball::get_velocity() {
-	return velocity;
+	shape = std::make_unique<sf::CircleShape>(radius);
+	shape->setPosition(5.0, 5.0);
+	shape->setFillColor(sf::Color::White);
 }
 
 void ball::update(sf::RenderWindow& window, float dt) {
@@ -32,24 +21,19 @@ void ball::update(sf::RenderWindow& window, float dt) {
 	float new_py = position.get_y() + new_vy * dt;
 
 	// check for out of boundary and bounce back
-	if (new_px < 0 || new_px + 2 * circle.getRadius() >= window.getSize().x) {
+	if (new_px < 0 || new_px + 2 * radius >= window.getSize().x) {
 		new_vx = -new_vx;
-		new_px = new_px < 0 ? -new_px : -new_px + 2 * (window.getSize().x - 2 * circle.getRadius());
+		new_px = new_px < 0 ? -new_px : -new_px + 2 * (window.getSize().x - 2 * radius);
 	}
-	if (new_py < 0 || new_py + 2 * circle.getRadius() >= window.getSize().y) {
+	if (new_py < 0 || new_py + 2 * radius >= window.getSize().y) {
 		new_vy = -new_vy;
-		new_py = new_py < 0 ? -new_py : -new_py + 2 * (window.getSize().y - 2 * circle.getRadius());
+		new_py = new_py < 0 ? -new_py : -new_py + 2 * (window.getSize().y - 2 * radius);
 	}
 
 	// apply changes
 	position.set_x(new_px);
 	position.set_y(new_py);
-	circle.setPosition(new_px, new_py);
+	shape->setPosition(new_px, new_py);
 	velocity.set_x(new_vx);
 	velocity.set_y(new_vy);
-}
-
-void ball::render(sf::RenderWindow& window, float dt) {
-	update(window, dt);
-	window.draw(circle);
 }

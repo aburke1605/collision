@@ -4,22 +4,14 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "vec.h"
+#include "object.h"
 
-class ball {
+class ball: public object {
 	private:
-		sf::CircleShape circle;
-		vec<float> position;
-		vec<float> velocity;
+		float radius;
 
 	public:
 		ball();
 
-		const sf::Shape& get_shape_handle();
-		const vec<float> get_position();
-		const vec<float> get_velocity();
-
 		void update(sf::RenderWindow&, float);
-
-		void render(sf::RenderWindow&, float);
 };

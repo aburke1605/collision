@@ -10,8 +10,7 @@ typedef std::chrono::high_resolution_clock clk;
 
 class scene {
 	private:
-		ball Ball;
-		box Box;
+		std::vector<std::unique_ptr<object>> objects;
 		clk::time_point time;
 
 	public:

@@ -2,6 +2,9 @@
 
 scene::scene() {
 	time = clk::now();
+
+	objects.push_back(std::make_unique<ball>());
+	objects.push_back(std::make_unique<box>());
 }
 
 void scene::update(sf::RenderWindow& window) {
@@ -10,6 +13,6 @@ void scene::update(sf::RenderWindow& window) {
 	float dt = delta.count(); // in seconds
 	time = current_time;
 
-	Ball.render(window, dt);
-	Box.render(window, dt);
+	for (std::vector<std::unique_ptr<object>>::iterator it = objects.begin(); it != objects.end(); it++)
+		(*it)->render(window, dt);
 }

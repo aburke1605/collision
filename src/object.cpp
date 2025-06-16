@@ -8,6 +8,13 @@ const vec<float> object::get_velocity() {
 	return velocity;
 }
 
+void object::out_of_bounds(float& p, float& v, float edge_upper, float edge_lower) {
+	if (p < edge_lower || p + get_dimension() >= edge_upper) {
+		v = -v;
+		p = p < edge_lower ? -p : -p + 2 * (edge_upper - get_dimension());
+	}
+}
+
 void object::update(sf::RenderWindow& window, float dt) {
 	// update velocity first for gravity and air resistance
 	float new_vx = velocity.get_x() * exp(-b * dt);

@@ -9,9 +9,6 @@ box::box() {
 	shape->setFillColor(sf::Color::Red);
 }
 
-void box::out_of_bounds(float& p, float& v, float edge_upper, float edge_lower = 0.0) {
-	if (p < edge_lower || p + length >= edge_upper) {
-		v = -v;
-		p = p < edge_lower ? -p : -p + 2 * (edge_upper - length);
-	}
+float box::get_dimension() {
+	return length;
 }

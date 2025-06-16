@@ -11,5 +11,5 @@ class ball: public object {
 	public:
 		ball();
 
-		void out_of_bounds(float&, float&, float, float);
+		float get_dimension();
 };

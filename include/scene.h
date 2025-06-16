@@ -15,5 +15,6 @@ class scene {
 
 	public:
 		scene();
-		void update(sf::RenderWindow& window);
+		void parse_user_input(sf::RenderWindow&);
+		void update(sf::RenderWindow&);
 };

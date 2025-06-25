@@ -2,6 +2,7 @@
 
 #include <chrono>
 typedef std::chrono::high_resolution_clock clk;
+#include <memory>
 
 #include <SFML/Graphics.hpp>
 
@@ -10,7 +11,7 @@ typedef std::chrono::high_resolution_clock clk;
 
 class scene {
 	private:
-		std::vector<std::unique_ptr<object>> objects;
+		std::vector<std::shared_ptr<object>> objects;
 		clk::time_point time;
 		bool interacting;
 

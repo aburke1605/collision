@@ -3,8 +3,8 @@
 scene::scene(): interacting(false) {
 	time = clk::now();
 
-	objects.push_back(std::make_unique<ball>());
-	objects.push_back(std::make_unique<box>());
+	objects.push_back(std::make_shared<ball>());
+	objects.push_back(std::make_shared<box>());
 }
 
 void scene::parse_user_input(sf::RenderWindow& window) {
@@ -33,7 +33,7 @@ void scene::update(sf::RenderWindow& window) {
 	if (interacting)
 		move_object(sf::Mouse::getPosition(window));
 
-	for (std::vector<std::unique_ptr<object>>::iterator it = objects.begin(); it != objects.end(); it++)
+	for (std::vector<std::shared_ptr<object>>::iterator it = objects.begin(); it != objects.end(); it++)
 		(*it)->render(window, dt);
 }
 

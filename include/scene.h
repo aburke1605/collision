@@ -13,11 +13,10 @@ class scene {
 	private:
 		std::vector<std::shared_ptr<object>> objects;
 		clk::time_point time;
-		bool interacting;
+		std::shared_ptr<object> selected_object;
 
 	public:
 		scene();
 		void parse_user_input(sf::RenderWindow&);
 		void update(sf::RenderWindow&);
-		void move_object(sf::Vector2i);
 };

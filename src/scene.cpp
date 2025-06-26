@@ -44,19 +44,21 @@ void scene::parse_user_input(sf::RenderWindow& window) {
 }
 
 void scene::update(sf::RenderWindow& window) {
-	parse_user_input(window);
-
+	// calculate time passed since last scene update
 	clk::time_point current_time = clk::now();
 	std::chrono::duration<float> delta = current_time - time;
 	float dt = delta.count(); // in seconds
 	time = current_time;
 
-	sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+	// object dragging
+	parse_user_input(window);
 	if (selected_object != nullptr) {
+		sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
 		selected_object->set_position(vec<float>(mouse_position.x - selected_object->get_dimension() / 2, mouse_position.y - selected_object->get_dimension() / 2));
 		selected_object->set_velocity(vec<float>(0.0, 0.0));
 	}
 
+	// render each object
 	for (std::vector<std::shared_ptr<object>>::iterator it = objects.begin(); it != objects.end(); it++)
 		(*it)->render(window, dt);
 }

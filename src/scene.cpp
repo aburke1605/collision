@@ -59,6 +59,58 @@ void scene::update(sf::RenderWindow& window) {
 	}
 
 	// render each object
-	for (std::vector<std::shared_ptr<object>>::iterator it = objects.begin(); it != objects.end(); it++)
+	for (std::vector<std::shared_ptr<object>>::iterator it = objects.begin(); it != objects.end(); it++) {
 		(*it)->render(window, dt);
+
+		// handle collisions
+		if (selected_object == nullptr) {
+			for (std::vector<std::shared_ptr<object>>::iterator jt = objects.begin(); jt != objects.end(); jt++) {
+				if (it == jt) continue;
+
+				float px_1 = (*it)->get_position().get_x();
+				float py_1 = (*it)->get_position().get_y();
+				float px_2 = (*jt)->get_position().get_x();
+				float py_2 = (*jt)->get_position().get_y();
+				if (
+					std::abs(px_1-px_2) <= ((*it)->get_dimension() + (*jt)->get_dimension()) / 2 &&
+					std::abs(py_1-py_2) <= ((*it)->get_dimension() + (*jt)->get_dimension()) / 2
+				) {
+					// contact normal vector:
+					//   n = r2 - r1 / abs(r2 - r1)
+					// angle:
+					//   φ = atan[(r2_y - r1_y) / (r2_x - r1_x)]
+					// components of velocity parallel to contact normal vector swap
+					// components of velocity perpendicular to contact normal vector remain unchanged
+					float phi = atan2(py_2 - py_1, px_2 - px_1);
+
+					float vx_1 = (*it)->get_velocity().get_x();
+					float vy_1 = (*it)->get_velocity().get_y();
+					float vx_2 = (*jt)->get_velocity().get_x();
+					float vy_2 = (*jt)->get_velocity().get_y();
+
+					// convert to new coordinate system
+					float v_par_1 = vx_1 * cos(phi) + vy_1 * sin(phi);
+					float v_per_1 = vy_1 * cos(phi) - vx_1 * sin(phi);
+					float v_par_2 = vx_2 * cos(phi) + vy_2 * sin(phi);
+					float v_per_2 = vy_2 * cos(phi) - vx_2 * sin(phi);
+
+					// swap parallel components after collision
+					float new_v_par_1 = v_par_2;
+					float new_v_par_2 = v_par_1;
+					// keep perpendicular components
+					float new_v_per_1 = v_per_1;
+					float new_v_per_2 = v_per_2;
+
+					// convert back to x-y
+					float new_vx_1 = new_v_par_1 * cos(phi) - new_v_per_1 * sin(phi);
+					float new_vy_1 = new_v_par_1 * sin(phi) + new_v_per_1 * cos(phi);
+					float new_vx_2 = new_v_par_2 * cos(phi) - new_v_per_2 * sin(phi);
+					float new_vy_2 = new_v_par_2 * sin(phi) + new_v_per_2 * cos(phi);
+
+					(*it)->set_velocity(vec<float>(new_vx_1, new_vy_1));
+					(*jt)->set_velocity(vec<float>(new_vx_2, new_vy_2));
+				}
+			}
+		}
+	}
 }

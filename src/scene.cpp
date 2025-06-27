@@ -119,6 +119,11 @@ void scene::update(sf::RenderWindow& window) {
 
 					(*it)->set_velocity(vec<float>(new_vx_1, new_vy_1));
 					(*jt)->set_velocity(vec<float>(new_vx_2, new_vy_2));
+
+					float factor = (((*it)->get_dimension() + (*jt)->get_dimension()) / 2 - std::sqrt(pow(px_2 - px_1, 2) + pow(py_2 - py_1, 2))) / 2;
+					factor *= 1.01; // to make it > rather than >= for next scene::update()
+					(*it)->set_position(vec<float>(px_1 + (factor * std::cos(phi)) * (px_1>px_2?1:-1), py_1 + (factor * std::sin(phi)) * (py_1>py_2?1:-1)));
+					(*jt)->set_position(vec<float>(px_2 + (factor * std::cos(phi)) * (px_1<px_2?1:-1), py_2 + (factor * std::sin(phi)) * (py_1<py_2?1:-1)));
 				}
 			}
 		}

@@ -3,16 +3,10 @@
 scene::scene() {
 	time = clk::now();
 
-	// objects.push_back(std::make_shared<ball>());
-	// objects.push_back(std::make_shared<box>());
-	// objects.push_back(std::make_shared<ball>(vec<float>(100.0, 100.0), vec<float>(100.0, 100.0), 25));
-	// objects.push_back(std::make_shared<ball>(vec<float>(200.0, 100.0), vec<float>(-200.0, -300.0), 25));
-	// objects.push_back(std::make_shared<ball>(vec<float>(300.0, 100.0), vec<float>(-500.0, 200.0), 25));
-	// objects.push_back(std::make_shared<ball>(vec<float>(400.0, 100.0), vec<float>(100.0, -400.0), 25));
-	// objects.push_back(std::make_shared<ball>(vec<float>(200.0, 100.0), vec<float>(50.0, 0.0), 25));
-	// objects.push_back(std::make_shared<ball>(vec<float>(400.0, 100.0), vec<float>(-50.0, 0.0), 25, sf::Color::Red));
 	objects.push_back(std::make_shared<ball>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 25));
 	objects.push_back(std::make_shared<ball>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 25, sf::Color::Red));
+	objects.push_back(std::make_shared<box>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 50, sf::Color::Blue));
+	objects.push_back(std::make_shared<box>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 50, sf::Color::Green));
 }
 
 void scene::parse_user_input(sf::RenderWindow& window) {
@@ -53,7 +47,6 @@ void scene::parse_user_input(sf::RenderWindow& window) {
 	}
 }
 
-#include <unistd.h>
 void scene::update(sf::RenderWindow& window) {
 	// calculate time passed since last scene update
 	clk::time_point current_time = clk::now();

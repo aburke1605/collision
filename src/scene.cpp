@@ -71,7 +71,20 @@ void scene::update(sf::RenderWindow& window) {
 				float py_1 = (*it)->get_position().get_y();
 				float px_2 = (*jt)->get_position().get_x();
 				float py_2 = (*jt)->get_position().get_y();
-				if (std::sqrt(std::pow(px_1-px_2, 2) + std::pow(py_1-py_2, 2)) < ((*it)->get_dimension() + (*jt)->get_dimension()) / 2) {
+				
+				// move apart default instantiated objects
+				// (which are created in the same position)
+				if (px_1 == px_2 && py_1 == py_2) {
+					px_1 -= 1.1 * ((*it)->get_dimension() + (*jt)->get_dimension()) / 4;
+					py_1 -= 1.1 * ((*it)->get_dimension() + (*jt)->get_dimension()) / 4;
+					px_2 += 1.1 * ((*it)->get_dimension() + (*jt)->get_dimension()) / 4;
+					py_2 += 1.1 * ((*it)->get_dimension() + (*jt)->get_dimension()) / 4;
+					(*it)->set_position(vec<float>(px_1, py_1));
+					(*jt)->set_position(vec<float>(px_2, py_2));
+					
+				// move apart and reflect objects which overlap according
+				// to their dimensions and the contact normal vector
+				} else if (std::sqrt(std::pow(px_1-px_2, 2) + std::pow(py_1-py_2, 2)) < ((*it)->get_dimension() + (*jt)->get_dimension()) / 2) {
 					// contact normal vector:
 					//   n = r2 - r1 / abs(r2 - r1)
 					// angle:

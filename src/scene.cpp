@@ -60,9 +60,7 @@ void scene::update(sf::RenderWindow& window) {
 
 	// render each object
 	for (std::vector<std::shared_ptr<object>>::iterator it = objects.begin(); it != objects.end(); it++) {
-		(*it)->render(window, dt);
-
-		// handle collisions
+		// handle collisions first
 		if (selected_object == nullptr) {
 			for (std::vector<std::shared_ptr<object>>::iterator jt = objects.begin(); jt != objects.end(); jt++) {
 				if (it == jt) continue;
@@ -127,5 +125,7 @@ void scene::update(sf::RenderWindow& window) {
 				}
 			}
 		}
+
+		(*it)->render(window, dt);
 	}
 }

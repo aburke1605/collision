@@ -10,6 +10,8 @@ class ball: public object {
 
 	public:
 		ball();
+		ball(vec<float>, vec<float>, float);
+		ball(vec<float>, vec<float>, float, sf::Color);
 
 		float get_dimension();
 };

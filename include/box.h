@@ -10,6 +10,8 @@ class box: public object {
 
 	public:
 		box();
+		box(vec<float>, vec<float>, float);
+		box(vec<float>, vec<float>, float, sf::Color);
 
 		float get_dimension();
 };

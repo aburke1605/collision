@@ -3,8 +3,16 @@
 scene::scene() {
 	time = clk::now();
 
-	objects.push_back(std::make_shared<ball>());
-	objects.push_back(std::make_shared<box>());
+	// objects.push_back(std::make_shared<ball>());
+	// objects.push_back(std::make_shared<box>());
+	// objects.push_back(std::make_shared<ball>(vec<float>(100.0, 100.0), vec<float>(100.0, 100.0), 25));
+	// objects.push_back(std::make_shared<ball>(vec<float>(200.0, 100.0), vec<float>(-200.0, -300.0), 25));
+	// objects.push_back(std::make_shared<ball>(vec<float>(300.0, 100.0), vec<float>(-500.0, 200.0), 25));
+	// objects.push_back(std::make_shared<ball>(vec<float>(400.0, 100.0), vec<float>(100.0, -400.0), 25));
+	// objects.push_back(std::make_shared<ball>(vec<float>(200.0, 100.0), vec<float>(50.0, 0.0), 25));
+	// objects.push_back(std::make_shared<ball>(vec<float>(400.0, 100.0), vec<float>(-50.0, 0.0), 25, sf::Color::Red));
+	objects.push_back(std::make_shared<ball>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 25));
+	objects.push_back(std::make_shared<ball>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 25, sf::Color::Red));
 }
 
 void scene::parse_user_input(sf::RenderWindow& window) {
@@ -34,6 +42,8 @@ void scene::parse_user_input(sf::RenderWindow& window) {
 			case sf::Event::MouseButtonReleased:
 				if (event.mouseButton.button == sf::Mouse::Left) {
 					selected_object = nullptr;
+					// move the selected object to the top of the objects vector?
+					// maybe use a linked list
 					break;
 				}
 
@@ -43,6 +53,7 @@ void scene::parse_user_input(sf::RenderWindow& window) {
 	}
 }
 
+#include <unistd.h>
 void scene::update(sf::RenderWindow& window) {
 	// calculate time passed since last scene update
 	clk::time_point current_time = clk::now();
@@ -79,10 +90,11 @@ void scene::update(sf::RenderWindow& window) {
 					py_2 += 1.1 * ((*it)->get_dimension() + (*jt)->get_dimension()) / 4;
 					(*it)->set_position(vec<float>(px_1, py_1));
 					(*jt)->set_position(vec<float>(px_2, py_2));
-					
+				}
+
 				// move apart and reflect objects which overlap according
 				// to their dimensions and the contact normal vector
-				} else if (std::sqrt(std::pow(px_1-px_2, 2) + std::pow(py_1-py_2, 2)) < ((*it)->get_dimension() + (*jt)->get_dimension()) / 2) {
+				else if (std::sqrt(std::pow(px_1-px_2, 2) + std::pow(py_1-py_2, 2)) < ((*it)->get_dimension() + (*jt)->get_dimension()) / 2) {
 					// contact normal vector:
 					//   n = r2 - r1 / abs(r2 - r1)
 					// angle:

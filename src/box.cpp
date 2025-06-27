@@ -27,3 +27,7 @@ box::box(vec<float> p, vec<float> v, float l, sf::Color c) {
 float box::get_dimension() {
 	return length;
 }
+
+void box::set_dimension(float l) {
+	length = l;
+}

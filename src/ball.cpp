@@ -27,3 +27,7 @@ ball::ball(vec<float> p, vec<float> v, float r, sf::Color c) {
 float ball::get_dimension() {
 	return 2 * radius;
 }
+
+void ball::set_dimension(float d) {
+	radius = d / 2;
+}

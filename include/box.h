@@ -14,4 +14,5 @@ class box: public object {
 		box(vec<float>, vec<float>, float, sf::Color);
 
 		float get_dimension();
+		void set_dimension(float);
 };

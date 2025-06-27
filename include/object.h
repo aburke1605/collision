@@ -23,6 +23,7 @@ class object {
 
         // changes for each shape
 		virtual float get_dimension() = 0;
+		virtual void set_dimension(float) = 0;
 
 		void out_of_bounds(float&, float&, float, float = 0.0);
 

@@ -99,10 +99,10 @@ void scene::update(sf::RenderWindow& window) {
 					float vy_2 = (*jt)->get_velocity().get_y();
 
 					// convert to new coordinate system
-					float v_par_1 = vx_1 * cos(phi) + vy_1 * sin(phi);
-					float v_per_1 = vy_1 * cos(phi) - vx_1 * sin(phi);
-					float v_par_2 = vx_2 * cos(phi) + vy_2 * sin(phi);
-					float v_per_2 = vy_2 * cos(phi) - vx_2 * sin(phi);
+					float v_par_1 = vx_1 * std::cos(phi) + vy_1 * std::sin(phi);
+					float v_per_1 = vy_1 * std::cos(phi) - vx_1 * std::sin(phi);
+					float v_par_2 = vx_2 * std::cos(phi) + vy_2 * std::sin(phi);
+					float v_per_2 = vy_2 * std::cos(phi) - vx_2 * std::sin(phi);
 
 					// swap parallel components after collision
 					float new_v_par_1 = v_par_2;
@@ -112,10 +112,10 @@ void scene::update(sf::RenderWindow& window) {
 					float new_v_per_2 = v_per_2;
 
 					// convert back to x-y
-					float new_vx_1 = new_v_par_1 * cos(phi) - new_v_per_1 * sin(phi);
-					float new_vy_1 = new_v_par_1 * sin(phi) + new_v_per_1 * cos(phi);
-					float new_vx_2 = new_v_par_2 * cos(phi) - new_v_per_2 * sin(phi);
-					float new_vy_2 = new_v_par_2 * sin(phi) + new_v_per_2 * cos(phi);
+					float new_vx_1 = new_v_par_1 * std::cos(phi) - new_v_per_1 * std::sin(phi);
+					float new_vy_1 = new_v_par_1 * std::sin(phi) + new_v_per_1 * std::cos(phi);
+					float new_vx_2 = new_v_par_2 * std::cos(phi) - new_v_per_2 * std::sin(phi);
+					float new_vy_2 = new_v_par_2 * std::sin(phi) + new_v_per_2 * std::cos(phi);
 
 					(*it)->set_velocity(vec<float>(new_vx_1, new_vy_1));
 					(*jt)->set_velocity(vec<float>(new_vx_2, new_vy_2));

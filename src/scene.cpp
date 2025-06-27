@@ -71,10 +71,7 @@ void scene::update(sf::RenderWindow& window) {
 				float py_1 = (*it)->get_position().get_y();
 				float px_2 = (*jt)->get_position().get_x();
 				float py_2 = (*jt)->get_position().get_y();
-				if (
-					std::abs(px_1-px_2) <= ((*it)->get_dimension() + (*jt)->get_dimension()) / 2 &&
-					std::abs(py_1-py_2) <= ((*it)->get_dimension() + (*jt)->get_dimension()) / 2
-				) {
+				if (std::sqrt(std::pow(px_1-px_2, 2) + std::pow(py_1-py_2, 2)) < ((*it)->get_dimension() + (*jt)->get_dimension()) / 2) {
 					// contact normal vector:
 					//   n = r2 - r1 / abs(r2 - r1)
 					// angle:

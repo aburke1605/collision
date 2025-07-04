@@ -1,12 +1,14 @@
 #include "../include/scene.h"
+#include "../include/utils.h"
 
 scene::scene() {
 	time = clk::now();
 
-	objects.push_back(std::make_shared<ball>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 25));
-	objects.push_back(std::make_shared<ball>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 25, sf::Color::Red));
-	objects.push_back(std::make_shared<box>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 50, sf::Color::Blue));
-	objects.push_back(std::make_shared<box>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 50, sf::Color::Green));
+	objects.push_back(std::make_shared<ball>(vec<float>(225.0, 20.0), vec<float>(0.0, 0.0), 25));
+	// objects.push_back(std::make_shared<ball>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 25));
+	// objects.push_back(std::make_shared<ball>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 25, sf::Color::Red));
+	// objects.push_back(std::make_shared<box>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 50, sf::Color::Blue));
+	// objects.push_back(std::make_shared<box>(vec<float>(250.0, 500.0), vec<float>(0.0, 0.0), 50, sf::Color::Green));
 }
 
 void scene::parse_user_input(sf::RenderWindow& window) {

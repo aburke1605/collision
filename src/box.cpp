@@ -9,6 +9,13 @@ box::box() {
 	shape->setFillColor(sf::Color::Red);
 }
 
+box::box(vec<float> p, float l): box() {
+	position = p;
+	length = l;
+	shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(length, length));
+	shape->setPosition(position.get_x(), position.get_y());
+}
+
 box::box(vec<float> p, vec<float> v, float l): box() {
 	position = p;
 	velocity = v;
@@ -21,6 +28,7 @@ box::box(vec<float> p, vec<float> v, float l, sf::Color c) {
 	length = l;
 
 	shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(length, length));
+	shape->setPosition(position.get_x(), position.get_y());
 	shape->setFillColor(c);
 }
 

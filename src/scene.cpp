@@ -1,4 +1,5 @@
 #include "../include/scene.h"
+#include "../include/utils.h"
 
 scene::scene() {
 	time = clk::now();

@@ -9,6 +9,13 @@ ball::ball() {
 	shape->setFillColor(sf::Color::White);
 }
 
+ball::ball(vec<float> p, float r): ball() {
+	position = p;
+	radius = r;
+	shape = std::make_unique<sf::CircleShape>(radius);
+	shape->setPosition(position.get_x(), position.get_y());
+}
+
 ball::ball(vec<float> p, vec<float> v, float r): ball() {
 	position = p;
 	velocity = v;
@@ -21,6 +28,7 @@ ball::ball(vec<float> p, vec<float> v, float r, sf::Color c) {
 	radius = r;
 
 	shape = std::make_unique<sf::CircleShape>(radius);
+	shape->setPosition(position.get_x(), position.get_y());
 	shape->setFillColor(c);
 }
 
